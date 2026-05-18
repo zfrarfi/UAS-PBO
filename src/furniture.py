@@ -24,9 +24,9 @@ class Furniture:
             self.__level += 1
             self.__comfort += 5
             self.__upgrade_cost += 100
-            print(f"{self.__name} berhasil diupgrade!")
+            print(f"{self.__name} berhasil diupgrade")
 
         else:
-            print("Uang tidak cukup!")
+            print("Uang tidak cukup")
 
         return money
