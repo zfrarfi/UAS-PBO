@@ -15,14 +15,10 @@ class Furniture:
     def get_upgrade_cost(self):
         return self.__upgrade_cost
 
-    def get_comfort(self):
-        return self.__comfort
-
     def upgrade(self, money):
         if money >= self.__upgrade_cost:
             money -= self.__upgrade_cost
             self.__level += 1
-            self.__comfort += 5
             self.__upgrade_cost += 100
             print(f"{self.__name} berhasil diupgrade")
 
