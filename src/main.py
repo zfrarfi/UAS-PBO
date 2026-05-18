@@ -11,7 +11,7 @@ pygame.display.set_caption("Midnight Cafe")
 bg_img = pygame.image.load("D:/Vs Code/UAS PBO/assets/image/map/map_lengkap.jpeg")
 
 running = True
-
+#SLDKJWEDGFNEIBF
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
