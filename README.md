@@ -36,17 +36,38 @@ Beberapa customer punya cerita dan perkembangan hidup masing-masing yang akan be
 ## Struktur Project
 
 ```text
+## 📁 Struktur Projek
+
+```text
 UAS-PBO/
 ├── assets/
-├── cafe/
-├── characters/
-├── menus/
-├── scenes/
-├── systems/
-├── ui/
-├── main.py
-├── README.md
-└── .gitignore
+│   ├── font/
+│   ├── image/
+│   │   ├── character/
+│   │   │   ├── barista/
+│   │   │   └── customer/
+│   │   ├── map/
+│   │   ├── menu/
+│   │   │   ├── makanan/
+│   │   │   └── minuman/
+│   │   └── ui/
+│   ├── .gitkeep
+│   ├── music/
+│   └── sound/
+├── src/
+│   ├── camera.py
+│   ├── character.py
+│   ├── furniture.py
+│   ├── main.py
+│   ├── mapcafe.py
+│   ├── menu.py
+│   ├── payment.py
+│   ├── pesanan.py
+│   ├── progrescusttetap.py
+│   ├── spawncust.py
+│   └── ui.py
+├── .gitignore
+└── README.md
 ```
 
 ## Cara Menjalankan Game
