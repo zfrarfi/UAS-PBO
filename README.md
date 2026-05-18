@@ -63,8 +63,9 @@ Lalu jalankan game:
 python main.py
 ```
 
-## Anggota Kelompok
+## Anggota Kelompok 4
 
-- Fauzan
-- Nama Anggota 2
-- Nama Anggota 3
+- Fauzan Al-Maliky Setyawan (038)
+- Ahmad Sulthan Maulana Yusuf (118)
+- Muh. Taqiy Ananta Fauzan (166)
+- Achmad Zufar Ar Rafii (245)
