@@ -36,9 +36,6 @@ Beberapa customer punya cerita dan perkembangan hidup masing-masing yang akan be
 ## Struktur Project
 
 ```text
-## 📁 Struktur Projek
-
-```text
 UAS-PBO/
 ├── assets/
 │   ├── font/
@@ -51,7 +48,6 @@ UAS-PBO/
 │   │   │   ├── makanan/
 │   │   │   └── minuman/
 │   │   └── ui/
-│   ├── .gitkeep
 │   ├── music/
 │   └── sound/
 ├── src/
