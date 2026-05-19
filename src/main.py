@@ -2,9 +2,10 @@ import pygame
 import sys
 
 pygame.init()
+monitor_info = pygame.display.Info()
 
-WIDTH = 1280
-HEIGHT = 720
+WIDTH = monitor_info.current_w
+HEIGHT = monitor_info.current_h
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Midnight Cafe")
@@ -22,4 +23,3 @@ while running:
 
 pygame.quit()
 sys.exit()
-
