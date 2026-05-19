@@ -8,6 +8,7 @@ HEIGHT = 720
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Midnight Cafe")
+bg_img = pygame.image.load("D:/Vs Code/UAS PBO/assets/image/map/lantai_luas.png")
 
 running = True
 
@@ -16,7 +17,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill((67, 67, 67))
+    screen.blit(bg_img,(0, 0))
     pygame.display.update()
 
 pygame.quit()
