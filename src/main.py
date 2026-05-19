@@ -3,12 +3,12 @@ import sys
 
 pygame.init()
 
-WIDTH = 1280
-HEIGHT = 720
+WIDTH = 1600
+HEIGHT = 900
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Midnight Cafe")
-bg_img = pygame.image.load("D:/Vs Code/UAS PBO/assets/image/map/lantai_luas.png")
+bg_img = pygame.image.load("D:/Vs Code/UAS PBO/assets/image/map/map_lengkap.jpeg")
 
 running = True
 
