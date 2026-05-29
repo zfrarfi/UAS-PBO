@@ -15,6 +15,7 @@ class Character:
         self.y_position += dy
         self.rect.center = (self.x_position, self.y_position)
         
-    def draw(self, surface):
+    def draw(self, surface, offset=(0, 0)):
         if self.image:
-            surface.blit(self.image, self.rect)
+            draw_rect = self.rect.move(-offset[0], -offset[1])
+            surface.blit(self.image, draw_rect)

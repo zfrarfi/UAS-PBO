@@ -4,7 +4,8 @@ from character_ygngerjain.character import Character
 
 class Barista(Character):
     def __init__(self,x_position, y_position,):
-        super().__init__(x_position,y_position,speed = 0.5,name = "Barista", bubble_chat="")
+        # use speed in pixels per second and pass to base class
+        super().__init__(x_position, y_position, speed=200, name="Barista", bubble_chat="")
 
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
         character_dir = os.path.join(base_dir, "assets", "image", "character", "barista")
@@ -23,25 +24,26 @@ class Barista(Character):
         self.image = self.front
         self.rect = self.image.get_rect(center=(x_position, y_position))
         
-    def input(self):
+    def input(self, dt):
+        """Handle input and move character. `dt` is seconds since last frame."""
         keys = pygame.key.get_pressed()
-        dx = 0
-        dy = 0
-        
+        dx = 0.0
+        dy = 0.0
+
         if keys[pygame.K_a]:
-            dx = -self.speed
+            dx = -self.speed * dt
             self.image = self.left
 
         if keys[pygame.K_d]:
-            dx = self.speed
+            dx = self.speed * dt
             self.image = self.right
 
         if keys[pygame.K_w]:
-            dy = -self.speed
+            dy = -self.speed * dt
             self.image = self.back
 
         if keys[pygame.K_s]:
-            dy = self.speed
+            dy = self.speed * dt
             self.image = self.front
 
         self.move(dx, dy)
