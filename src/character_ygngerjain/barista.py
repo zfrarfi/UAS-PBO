@@ -1,6 +1,6 @@
 import pygame
-from character import Character
-from enums import BaristaState, CustomerState
+from character_ygngerjain.character import Character
+from character_ygngerjain.enums import BaristaState, CustomerState
 
 
 
