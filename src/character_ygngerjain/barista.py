@@ -1,21 +1,27 @@
+import os
 import pygame
 from character_ygngerjain.character import Character
 
 class Barista(Character):
     def __init__(self,x_position, y_position,):
         super().__init__(x_position,y_position,speed = 0.5,name = "Barista", bubble_chat="")
-        
-        self.front = pygame.image.load("D:/Vs Code/UAS-PBO/assets/image/character/barista/barista_back.png").convert_alpha()
-        self.back = pygame.image.load("D:/Vs Code/UAS-PBO/assets/image/character/barista/barista_front.png").convert_alpha()
-        self.left = pygame.image.load("D:/Vs Code/UAS-PBO/assets/image/character/barista/barista_left.png").convert_alpha()
-        self.right = pygame.image.load("D:/Vs Code/UAS-PBO/assets/image/character/barista/barista_right.png").convert_alpha()
-        
-        self.front = pygame.transform.scale(self.front, (100, 100))
-        self.back = pygame.transform.scale(self.back, (100, 100))
-        self.left = pygame.transform.scale(self.left, (100, 100))
-        self.right = pygame.transform.scale(self.right, (100, 100))
-        
+
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
+        character_dir = os.path.join(base_dir, "assets", "image", "character", "barista")
+
+        def load_scaled(filename, width=100):
+            image = pygame.image.load(os.path.join(character_dir, filename)).convert_alpha()
+            scale = width / image.get_width()
+            new_height = max(1, int(image.get_height() * scale))
+            return pygame.transform.smoothscale(image, (width, new_height))
+
+        self.front = load_scaled("barista_back.png")
+        self.back = load_scaled("barista_front.png")
+        self.left = load_scaled("barista_left.png")
+        self.right = load_scaled("barista_right.png")
+
         self.image = self.front
+        self.rect = self.image.get_rect(center=(x_position, y_position))
         
     def input(self):
         keys = pygame.key.get_pressed()
