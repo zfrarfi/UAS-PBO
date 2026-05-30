@@ -2,8 +2,7 @@ import os
 import pygame
 import sys
 from character_ygngerjain.barista import Barista
-from customer_ygngerjain.customer import Customer
-from character_ygngerjain.spawncust import SpawnCust
+from character_ygngerjain.customer import Customer
 from ui_ygngerjain.mainmenu import MainMenu
 from ui_ygngerjain.hud import Hud
 from ui_ygngerjain.kitchen import KitchenMode
@@ -23,12 +22,12 @@ BG_WIDTH, BG_HEIGHT = bg_img.get_size()
 bg_menu = pygame.transform.smoothscale(bg_img, (WIDTH, HEIGHT))
 
 barista = Barista(WIDTH // 2, HEIGHT // 2)
-barista = Barista(WIDTH // 2, HEIGHT // 2)
 
 customer = Customer(
-    WIDTH // 2 + 100,
-    HEIGHT // 2
+    x_position=BG_WIDTH - 50,
+    y_position=400   
 )
+print("Customer berhasil dibuat")
 main_menu = MainMenu(WIDTH, HEIGHT)
 order_manager = OrderManager()
 hud = Hud(barista=barista, order_manager=order_manager, start_money=0)
