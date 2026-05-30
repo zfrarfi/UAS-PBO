@@ -1,6 +1,6 @@
 import os
 import pygame
-from character_ygngerjain.character import Character
+from character.character import Character
 
 class Barista(Character):
     def __init__(self,x_position, y_position,):

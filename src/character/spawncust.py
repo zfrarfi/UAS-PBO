@@ -1,4 +1,4 @@
-from character_ygngerjain.customer import Customer
+from character.customer import Customer
 import random
 
 class SpawnCust:

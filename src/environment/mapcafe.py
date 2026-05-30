@@ -1,6 +1,6 @@
 import pygame
 import os
-from environment_taqiy.furniture import Furniture
+from environment.furniture import Furniture
 
 
 class MapCafe:

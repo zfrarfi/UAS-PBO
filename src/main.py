@@ -1,14 +1,14 @@
 import pygame
 import sys
 
-from environment_taqiy.mapcafe import MapCafe
+from environment.mapcafe import MapCafe
+from environment.furniture import Furniture
+from character.barista import Barista
+from character.customer import Customer
 
-from character_ygngerjain.barista import Barista
-from character_ygngerjain.customer import Customer
-
-from ui_ygngerjain.mainmenu import MainMenu
-from ui_ygngerjain.hud import Hud
-from ui_ygngerjain.kitchen import KitchenMode
+from ui.mainmenu import MainMenu
+from ui.hud import Hud
+from ui.kitchen import KitchenMode
 
 from order_system.orders import OrderManager
 

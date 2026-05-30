@@ -1,5 +1,5 @@
 import pygame
-from character_ygngerjain.character import Character
+from character.character import Character
 
 class Customer(Character):
     def __init__(self, x_position, y_position):
@@ -24,6 +24,9 @@ class Customer(Character):
             pygame.image.load("assets/image/character/customer/cust_right_frame1.png").convert_alpha(),
             pygame.image.load("assets/image/character/customer/cust_right_frame2.png").convert_alpha()
         ]
+        
+        # Scale frames maintaining aspect ratio
+        target_width = 80
         for frame_list in [
             self.front_frames,
             self.back_frames,
@@ -31,9 +34,13 @@ class Customer(Character):
             self.right_frames
         ]:
             for i in range(len(frame_list)):
-                frame_list[i] = pygame.transform.scale(
+                original_width = frame_list[i].get_width()
+                original_height = frame_list[i].get_height()
+                scale = target_width / original_width
+                new_height = max(1, int(original_height * scale))
+                frame_list[i] = pygame.transform.smoothscale(
                     frame_list[i],
-                    (100,100)
+                    (target_width, new_height)
         )
                 
         self.direction = "front"
