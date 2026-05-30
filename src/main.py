@@ -46,20 +46,20 @@ while running:
             running = False
 
         if not main_menu.active:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_k and game_state == "world":
-                    game_state = "kitchen"
-                elif game_state == "kitchen":
-                    kitchen_action = kitchen_mode.handle_event(event)
-                    if kitchen_action == "exit":
-                        game_state = "world"
+            if game_state == "world":
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_k:
+                        game_state = "kitchen"
+                    elif pygame.K_1 <= event.key <= pygame.K_9:
+                        idx = event.key - pygame.K_1
+                        price = order_manager.complete_order(idx)
+                        if price > 0:
+                            hud.add_money(price)
 
-            if event.type == pygame.KEYDOWN and game_state == "world":
-                if pygame.K_1 <= event.key <= pygame.K_9:
-                    idx = event.key - pygame.K_1
-                    price = order_manager.complete_order(idx)
-                    if price > 0:
-                        hud.add_money(price)
+            elif game_state == "kitchen":
+                kitchen_action = kitchen_mode.handle_event(event)
+                if kitchen_action == "exit":
+                    game_state = "world"
 
         menu_action = main_menu.handle_event(event)
         if menu_action == "Quit":
