@@ -20,3 +20,16 @@ class Customer:
             print(f"Peringatan: Gambar tidak ditemukan di {image_path}")
             self.image = pygame.Surface((64, 64))
             self.image.fill((255, 0, 0))
+
+        self.x_position = x_position
+        self.y_position = y_position
+        self.rect = self.image.get_rect(center=(x_position, y_position))
+
+    def update(self):
+        # Untuk saat ini pelanggan diam di tempat. Tambahkan logika gerakan nanti.
+        pass
+
+    def draw(self, surface, camera_offset=(0, 0)):
+        x = self.x_position - camera_offset[0]
+        y = self.y_position - camera_offset[1]
+        surface.blit(self.image, (x, y))

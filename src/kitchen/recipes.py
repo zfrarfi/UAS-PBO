@@ -39,6 +39,12 @@ RECIPES = {
         steps=[("mix", 3.0), ("bake", 6.0), ("serve", 0.5)],
         price=7,
     ),
+    "Juice": Recipe(
+        name="Juice",
+        ingredients=["Water", "Fruit"],
+        steps=[("blend", 2.0), ("serve", 0.5)],
+        price=6,
+    ),
 }
 
 def get_recipe(name: str) -> Recipe:
