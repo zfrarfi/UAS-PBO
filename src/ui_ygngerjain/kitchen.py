@@ -1,6 +1,6 @@
 import os
 import pygame
-from kitchen.recipes import get_recipe
+from kitchen.recipes import get_all_ingredients, get_recipe
 
 class KitchenMode:
     def __init__(self, width, height, order_manager, hud):
@@ -11,20 +11,12 @@ class KitchenMode:
         self.font = pygame.font.Font(None, 42)
         self.small_font = pygame.font.Font(None, 24)
         self.message = "Ready to cook!"
-        self.counter_image = None
         self.order_rects = []
         self.ingredient_rects = []
         self.selected_order_index = None
         self.selected_order_recipe = None
         self.selected_ingredients = []
-
-        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
-        counter_path = os.path.join(base_dir, "assets", "image", "ui", "meja_kasir.png")
-        if os.path.exists(counter_path):
-            counter = pygame.image.load(counter_path).convert_alpha()
-            scale = min(900 / counter.get_width(), 300 / counter.get_height())
-            new_size = (max(1, int(counter.get_width() * scale)), max(1, int(counter.get_height() * scale)))
-            self.counter_image = pygame.transform.smoothscale(counter, new_size)
+        self.available_ingredients = get_all_ingredients()
 
     def select_order(self, index):
         orders = self.order_manager.get_orders()
@@ -85,7 +77,7 @@ class KitchenMode:
 
             for idx, rect in enumerate(self.ingredient_rects):
                 if rect.collidepoint(event.pos) and self.selected_order_recipe is not None:
-                    ingredient = self.selected_order_recipe.ingredients[idx]
+                    ingredient = self.available_ingredients[idx]
                     self.toggle_ingredient(ingredient)
                     return None
 
@@ -130,27 +122,44 @@ class KitchenMode:
             current_label = self.font.render(f"Order: {recipe.name}", True, (255, 220, 140))
             surface.blit(current_label, (detail_panel_x, detail_panel_y))
 
+            hint_text = self.small_font.render(
+                f"Hint: use {', '.join(recipe.ingredients)}",
+                True,
+                (180, 200, 240),
+            )
+            surface.blit(hint_text, (detail_panel_x, detail_panel_y + 60))
+
             ingredient_label = self.small_font.render("Choose ingredients:", True, (220, 220, 220))
-            surface.blit(ingredient_label, (detail_panel_x, detail_panel_y + 60))
+            surface.blit(ingredient_label, (detail_panel_x, detail_panel_y + 90))
 
             self.ingredient_rects = []
-            for idx, ingredient in enumerate(recipe.ingredients):
-                rect = pygame.Rect(detail_panel_x, detail_panel_y + 100 + idx * 56, 300, 46)
+            box_width = 150
+            box_height = 56
+            gap_x = 16
+            gap_y = 14
+            cols = 2
+            for idx, ingredient in enumerate(self.available_ingredients):
+                row = idx // cols
+                col = idx % cols
+                x = detail_panel_x + col * (box_width + gap_x)
+                y = detail_panel_y + 130 + row * (box_height + gap_y)
+                rect = pygame.Rect(x, y, box_width, box_height)
                 self.ingredient_rects.append(rect)
                 selected = ingredient in self.selected_ingredients
                 fill_color = (85, 125, 80) if selected else (55, 55, 70)
                 border_color = (170, 210, 170) if selected else (110, 110, 130)
-                pygame.draw.rect(surface, fill_color, rect, border_radius=12)
-                pygame.draw.rect(surface, border_color, rect, 2, border_radius=12)
+                pygame.draw.rect(surface, fill_color, rect, border_radius=14)
+                pygame.draw.rect(surface, border_color, rect, 2, border_radius=14)
                 ingredient_text = self.small_font.render(ingredient, True, (245, 245, 245))
-                surface.blit(ingredient_text, (rect.x + 16, rect.y + 12))
+                surface.blit(ingredient_text, (rect.x + 14, rect.y + (box_height - ingredient_text.get_height()) // 2))
 
+            rows = (len(self.available_ingredients) + cols - 1) // cols
             selected_text = self.small_font.render(
                 f"Selected: {', '.join(self.selected_ingredients) if self.selected_ingredients else 'none'}",
                 True,
                 (200, 220, 200),
             )
-            surface.blit(selected_text, (detail_panel_x, detail_panel_y + 100 + len(recipe.ingredients) * 56 + 16))
+            surface.blit(selected_text, (detail_panel_x, detail_panel_y + 130 + rows * (box_height + gap_y) + 16))
         elif orders:
             hint = self.small_font.render("Select one order to see its ingredients.", True, (180, 180, 200))
             surface.blit(hint, (detail_panel_x, detail_panel_y))
@@ -159,13 +168,3 @@ class KitchenMode:
 
         message_surf = self.small_font.render(self.message, True, (180, 220, 180))
         surface.blit(message_surf, (30, self.height - 60))
-
-        if self.counter_image is not None:
-            counter_rect = self.counter_image.get_rect(midbottom=(self.width // 2, self.height - 20))
-            surface.blit(self.counter_image, counter_rect)
-        else:
-            counter_rect = pygame.Rect(self.width // 2 - 420, self.height - 180, 840, 160)
-            pygame.draw.rect(surface, (55, 55, 60), counter_rect, border_radius=18)
-            pygame.draw.rect(surface, (110, 110, 120), counter_rect, 4, border_radius=18)
-            counter_label = self.small_font.render("Kitchen counter", True, (210, 210, 210))
-            surface.blit(counter_label, (counter_rect.x + 18, counter_rect.y + 18))

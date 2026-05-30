@@ -49,3 +49,10 @@ RECIPES = {
 
 def get_recipe(name: str) -> Recipe:
     return RECIPES.get(name)
+
+
+def get_all_ingredients() -> list[str]:
+    ingredients = set()
+    for recipe in RECIPES.values():
+        ingredients.update(recipe.ingredients)
+    return sorted(ingredients)
