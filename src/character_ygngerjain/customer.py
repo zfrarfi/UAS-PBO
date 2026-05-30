@@ -96,27 +96,16 @@ class Customer(Character):
                 self.state = "ordering"
 
                 self.wait_timer = 180
-
+                
         elif self.state == "ordering":
 
             self.wait_timer -= 1
+                
 
-            if self.wait_timer <= 0:
-
-                self.state = "to_seat"
-
-        elif self.state == "to_seat":
-
-            arrived = self.move_to(
-                self.seat_x,
-                self.seat_y
-            )
-
-            if arrived:
-
-                self.state = "sitting"
-
-        self.animate()
+        if self.state != "ordering":
+            self.animate()
+        else:
+            self.animation_index = 0
 
         self.image = self.get_current_image()
 
