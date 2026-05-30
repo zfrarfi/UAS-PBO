@@ -1,17 +1,27 @@
 import os
 import pygame
 import sys
+from environment_taqiy.mapcafe import MapCafe
+
 from character_ygngerjain.barista import Barista
 from character_ygngerjain.customer import Customer
 from ui_ygngerjain.mainmenu import MainMenu
 from ui_ygngerjain.hud import Hud
 from ui_ygngerjain.kitchen import KitchenMode
 from order_system.orders import OrderManager
-pygame.init()
 
-WIDTH = 1280
-HEIGHT = 720
+def main():
+    pygame.init()
 
+    # Ukuran jendela game (Sesuaikan jika resolusi gambar lantai berbeda)
+    WIDTH, HEIGHT = 1280, 720
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Midnight Cafe - Environment Area (King Fauzan Paduka)")
+
+    clock = pygame.time.Clock()
+
+    # HANYA meload sistem Map dan Furniture
+    map_cafe = MapCafe(0, 0)
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 MAP_PATH = os.path.join(BASE_DIR, "assets", "image", "map", "mapcafe.png")
 
@@ -96,6 +106,31 @@ while running:
 
     pygame.display.update()
 
-pygame.quit()
-sys.exit()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
+        # Bersihkan layar tiap frame
+        screen.fill((0, 0, 0))
+
+        # Render semua tata letak cafe
+        map_cafe.gambarMap(screen)
+
+        # ========================================================
+        # MODE DEBUG: Menampilkan garis merah untuk mengecek tabrakan
+        # Sangat berguna untuk kalibrasi koordinat X dan Y perabotan
+        # ========================================================
+        for hitbox in map_cafe.get_collisions():
+            pygame.draw.rect(screen, (255, 0, 0), hitbox, 2)
+
+        pygame.display.flip()
+        clock.tick(60)
+
+    pygame.quit()
+    sys.exit()
+
+
+if __name__ == "__main__":
+    main()
