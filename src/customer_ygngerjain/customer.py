@@ -2,9 +2,8 @@ import pygame
 from character_ygngerjain.character import Character
 
 class Customer(Character):
-    def __init__(self, x_position, y_position, name, bubble_chat, money):
-        super().__init__(x_position, y_position, name = "Cuustomer", bubble_chat = ", speed = 0.5")
-        self.money = money
+    def __init__(self, x_position, y_position):
+        super().__init__(x_position, y_position, name = "Customer", bubble_chat = "", speed = 0.5)
         
         self.image = pygame.image.load("").convert_alpha()
         self.image = pygame.transform.scale(self.image,(100,100))

@@ -2,6 +2,8 @@ import os
 import pygame
 import sys
 from character_ygngerjain.barista import Barista
+from customer_ygngerjain.customer import Customer
+from character_ygngerjain.spawncust import SpawnCust
 from ui_ygngerjain.mainmenu import MainMenu
 from ui_ygngerjain.hud import Hud
 from ui_ygngerjain.kitchen import KitchenMode
@@ -21,6 +23,12 @@ BG_WIDTH, BG_HEIGHT = bg_img.get_size()
 bg_menu = pygame.transform.smoothscale(bg_img, (WIDTH, HEIGHT))
 
 barista = Barista(WIDTH // 2, HEIGHT // 2)
+barista = Barista(WIDTH // 2, HEIGHT // 2)
+
+customer = Customer(
+    WIDTH // 2 + 100,
+    HEIGHT // 2
+)
 main_menu = MainMenu(WIDTH, HEIGHT)
 order_manager = OrderManager()
 hud = Hud(barista=barista, order_manager=order_manager, start_money=0)
@@ -66,12 +74,14 @@ while running:
     if not main_menu.active:
         if game_state == "world":
             barista.input(dt)
+            customer.update()
             hud.update(dt)
             order_manager.update()
 
             camera_x = clamp(barista.x_position - WIDTH // 2, 0, max(0, BG_WIDTH - WIDTH))
             camera_y = clamp(barista.y_position - HEIGHT // 2, 0, max(0, BG_HEIGHT - HEIGHT))
             screen.blit(bg_img, (0, 0), (camera_x, camera_y, WIDTH, HEIGHT))
+            customer.draw(screen, (camera_x, camera_y))
             barista.draw(screen, (camera_x, camera_y))
 
             prompt = "Press K to enter kitchen mode"
